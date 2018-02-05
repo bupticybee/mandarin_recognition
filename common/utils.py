@@ -5,6 +5,27 @@ import sys
 import time
 import random
 
+class ExpVal:
+    def __init__(self,exp_a=0.97):
+        self.val = None
+        self.exp_a = exp_a
+    def update(self,newval):
+        if self.val == None:
+            self.val = newval
+        else:
+            self.val = self.exp_a * self.val + (1 - self.exp_a) * newval
+    def getval(self):
+        return round(self.val,2)
+    
+class Tick:
+    def __init__(self,tick=True):
+        if tick == True:
+            self._tick = time.time()
+    def tick(self):
+        self._tick = time.time()
+    def tock(self):
+        return round(time.time() - self._tick,2)
+
 class FlowWrapper():
     def __init__(self,flow,shuffle=True):
         self.flow = flow
